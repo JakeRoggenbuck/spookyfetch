@@ -1,12 +1,28 @@
 package main
 
 import (
-	"io/ioutil"
-	"log"
 	"github.com/gookit/color"
 	"fmt"
 	"github.com/shirou/gopsutil/host"
 )
+
+const PUMPKIN_ONE string = `
+                       .,'
+                     .''.'
+                    .' .'
+        _.ood0Pp._ ,'  '.~ .q?00doo._
+    .od00Pd0000Pdb._. . _:db?000b?000bo.
+  .?000Pd0000Pd0000PdbMb?0000b?000b?0000b.
+.d0000Pd0000Pd0000Pd0000b?0000b?000b?0000b.
+d0000Pd0000Pd00000Pd0000b?00000b?0000b?000b.
+00000Pd0000Pd0000Pd00000b?00000b?0000b?0000b
+?0000b?0000b?0000b?00000Pd00000Pd0000Pd0000P
+?0000b?0000b?0000b?00000Pd00000Pd0000Pd000P
+'?0000b?0000b?0000b?0000Pd0000Pd0000Pd000P'
+  '?000b?0000b?000b?0000Pd000Pd0000Pd000P
+    '~?00b?000b?000b?000Pd00Pd000Pd00P'
+        '~?0b?0b?000b?0Pd0Pd000PdP~'
+`
 
 
 func formatEntry(title string, item string, c color.Color256) string {
@@ -20,16 +36,7 @@ func printEntry(title string, item string, c color.Color256) {
 func main() {
 	pumpkin_orange := color.C256(208)
 
-	file := "./pumpkin_one"
-
-	fileContent, err := ioutil.ReadFile(file)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Printf("\n")
-	text := string(fileContent)
-	pumpkin_orange.Println(text);
+	pumpkin_orange.Println(PUMPKIN_ONE);
 
 	hostStat, _ := host.Info()
 
