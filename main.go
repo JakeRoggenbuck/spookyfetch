@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gookit/color"
 	"github.com/shirou/gopsutil/host"
+	"math/rand"
 	"time"
 )
 
@@ -53,6 +54,10 @@ const EVIL_HOUSE string = `
       _/  _/'-./'-; '-.\_ / \_'\'. '. ==='.
 `
 
+func randInt(min, max int) int {
+	return min + rand.Intn(max-min)
+}
+
 func formatEntry(title string, item string, c color.Color256) string {
 	return c.Sprintf(title+": ") + item
 }
@@ -95,7 +100,10 @@ func (i Theme) Color() color.Color256 {
 }
 
 func decideTheme() Theme {
-	return EvilHouse
+	rand.Seed(time.Now().UnixNano())
+	themes := []Theme{Pumpkin, EvilHouse}
+
+	return themes[randInt(0, len(themes))]
 }
 
 func main() {
