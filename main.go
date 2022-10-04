@@ -41,7 +41,6 @@ func main() {
 
 	hostStat, _ := host.Info()
 	_, month, day := time.Now().Date()
-	month = 11
 
 	var toSpooky string
 	if month == 10 {
