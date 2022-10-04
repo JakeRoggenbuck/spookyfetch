@@ -25,6 +25,34 @@ d0000Pd0000Pd00000Pd0000b?00000b?0000b?000b.
         '~?0b?0b?000b?0Pd0Pd000PdP~'
 `
 
+const EVIL_HOUSE string = `
+                            .-----.
+                          .'       '.
+                         :      ^v^  :
+                         :           :
+                         '           '
+          |~        www   '.       .'
+         /.\       /#^^\_   '-/\--'
+        /#  \     /#%    \   /# \
+       /#%   \   /#%______\ /#%__\
+      /#%     \   |= I I ||  |- |
+      ~~|~~~|~~   |_=_-__|'  |[]|
+        |[] |_______\__|/_ _ |= |'.
+ ^V^    |-  /= __   __    /-\|= | :;
+        |= /- /\/  /\/   /=- \.-' :;
+        | /_.=========._/_.-._\  .:'
+        |= |-.'.- .'.- |  /|\ |.:'
+        \  |=|:|= |:| =| |~|~||'|
+         |~|-|:| -|:|  |-|~|~||=|      ^V^
+         | |-_~__=_~__=|_^^^^^|/___
+         |-(=-=-=-=-=-(|=====/=_-=/\
+         | |=_-= _=- _=| -_=/=_-_/__\
+         | |- _ =_-  _-|=_- |]#| I II
+         |=|_/ \_-_= - |- = |]#| I II
+        _|/-'/  ' \_/ \|/' _ ^^^^'.==_^.
+      _/  _/'-./'-; '-.\_ / \_'\'. '. ==='.
+`
+
 func formatEntry(title string, item string, c color.Color256) string {
 	return c.Sprintf(title+": ") + item
 }
@@ -50,22 +78,24 @@ type Theme int
 
 const (
 	Pumpkin Theme = iota + 1
+	EvilHouse
 )
 
 func (i Theme) Image() string {
-	images := [...]string{PUMPKIN_ONE}
+	images := [...]string{PUMPKIN_ONE, EVIL_HOUSE}
 	return images[i-1]
 }
 
 func (i Theme) Color() color.Color256 {
 	pumpkin_orange := color.C256(208)
+	spooky_purple := color.C256(91)
 
-	colors := []color.Color256{pumpkin_orange}
+	colors := []color.Color256{pumpkin_orange, spooky_purple}
 	return colors[i-1]
 }
 
 func decideTheme() Theme {
-	return Pumpkin
+	return EvilHouse
 }
 
 func main() {
