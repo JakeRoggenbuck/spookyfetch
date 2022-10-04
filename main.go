@@ -4,6 +4,7 @@ import (
 	"github.com/gookit/color"
 	"fmt"
 	"github.com/shirou/gopsutil/host"
+	"time"
 )
 
 const PUMPKIN_ONE string = `
@@ -39,9 +40,21 @@ func main() {
 	pumpkin_orange.Println(PUMPKIN_ONE);
 
 	hostStat, _ := host.Info()
+	_, month, day := time.Now().Date()
+	month = 11
+
+	var toSpooky string
+	if month == 10 {
+		toSpooky = fmt.Sprintf("%d days until spooky day", 31 - day)
+	} else if month > 10 {
+		toSpooky = fmt.Sprintf("%d months and %d days until spooky day", month + (month - 10), 31 - day)
+	} else if month < 10 {
+		toSpooky = fmt.Sprintf("%d months and %d days until spooky day", 10 - month, 31 - day)
+	}
 
 	printEntry("OS", hostStat.Platform + " " + hostStat.OS + " "+ hostStat.KernelArch, pumpkin_orange)
 	printEntry("Kernel", hostStat.KernelVersion, pumpkin_orange)
 	printEntry("Hostname", hostStat.Hostname, pumpkin_orange)
+	printEntry("To Spooky", toSpooky, pumpkin_orange)
 	fmt.Printf("\n")
 }
