@@ -8,6 +8,15 @@ import (
 	"github.com/shirou/gopsutil/host"
 )
 
+
+func formatEntry(title string, item string, c color.Color256) string {
+	return c.Sprintf(title + ": ") + item
+}
+
+func printEntry(title string, item string, c color.Color256) {
+	fmt.Println(formatEntry(title, item, c))
+}
+
 func main() {
 	pumpkin_orange := color.C256(208)
 
@@ -18,11 +27,14 @@ func main() {
 		log.Fatal(err)
 	}
 
+	fmt.Printf("\n")
 	text := string(fileContent)
 	pumpkin_orange.Println(text);
 
 	hostStat, _ := host.Info()
-	fmt.Printf("OS: %s %s %s\n", hostStat.Platform, hostStat.OS, hostStat.KernelArch)
-	fmt.Println("Kernel: " + hostStat.KernelVersion)
-	fmt.Println("Hostname: " + hostStat.Hostname)
+
+	printEntry("OS", hostStat.Platform + " " + hostStat.OS + " "+ hostStat.KernelArch, pumpkin_orange)
+	printEntry("Kernel", hostStat.KernelVersion, pumpkin_orange)
+	printEntry("Hostname", hostStat.Hostname, pumpkin_orange)
+	fmt.Printf("\n")
 }
