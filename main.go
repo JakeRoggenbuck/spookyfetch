@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/gookit/color"
 	"fmt"
+	"github.com/gookit/color"
 	"github.com/shirou/gopsutil/host"
 	"time"
 )
@@ -25,35 +25,63 @@ d0000Pd0000Pd00000Pd0000b?00000b?0000b?000b.
         '~?0b?0b?000b?0Pd0Pd000PdP~'
 `
 
-
 func formatEntry(title string, item string, c color.Color256) string {
-	return c.Sprintf(title + ": ") + item
+	return c.Sprintf(title+": ") + item
 }
 
 func printEntry(title string, item string, c color.Color256) {
 	fmt.Println(formatEntry(title, item, c))
 }
 
-func main() {
-	pumpkin_orange := color.C256(208)
-
-	pumpkin_orange.Println(PUMPKIN_ONE);
-
-	hostStat, _ := host.Info()
+func getToSpooky() string {
 	_, month, day := time.Now().Date()
-
 	var toSpooky string
 	if month == 10 {
-		toSpooky = fmt.Sprintf("%d days until spooky day", 31 - day)
+		toSpooky = fmt.Sprintf("%d days until spooky day", 31-day)
 	} else if month > 10 {
-		toSpooky = fmt.Sprintf("%d months and %d days until spooky day", month + (month - 10), 31 - day)
+		toSpooky = fmt.Sprintf("%d months and %d days until spooky day", month+(month-10), 31-day)
 	} else if month < 10 {
-		toSpooky = fmt.Sprintf("%d months and %d days until spooky day", 10 - month, 31 - day)
+		toSpooky = fmt.Sprintf("%d months and %d days until spooky day", 10-month, 31-day)
 	}
+	return toSpooky
+}
 
-	printEntry("OS", hostStat.Platform + " " + hostStat.OS + " "+ hostStat.KernelArch, pumpkin_orange)
-	printEntry("Kernel", hostStat.KernelVersion, pumpkin_orange)
-	printEntry("Hostname", hostStat.Hostname, pumpkin_orange)
-	printEntry("To Spooky", toSpooky, pumpkin_orange)
+type Theme int
+
+const (
+	Pumpkin Theme = iota + 1
+)
+
+func (i Theme) Image() string {
+	images := [...]string{PUMPKIN_ONE}
+	return images[i-1]
+}
+
+func (i Theme) Color() color.Color256 {
+	pumpkin_orange := color.C256(208)
+
+	colors := []color.Color256{pumpkin_orange}
+	return colors[i-1]
+}
+
+func decideTheme() Theme {
+	return Pumpkin
+}
+
+func main() {
+	theme := decideTheme()
+
+	color := theme.Color()
+	image := theme.Image()
+
+	color.Println(image)
+
+	hostStat, _ := host.Info()
+	toSpooky := getToSpooky()
+
+	printEntry("OS", hostStat.Platform+" "+hostStat.OS+" "+hostStat.KernelArch, color)
+	printEntry("Kernel", hostStat.KernelVersion, color)
+	printEntry("Hostname", hostStat.Hostname, color)
+	printEntry("To Spooky", toSpooky, color)
 	fmt.Printf("\n")
 }
