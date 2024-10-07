@@ -1,5 +1,5 @@
 # spookyfetch
-Fetch tool but spooky for hacktoberfest
+Fetch tool but spooky for [hacktoberfest](https://hacktoberfest.com/) and [hacktoberfest github topic](https://github.com/topics/hacktoberfest)
 
 ![image](https://user-images.githubusercontent.com/35516367/193947726-3b234a67-4109-4c08-91b8-a5c27b799930.png)
 
